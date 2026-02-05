@@ -7,7 +7,6 @@ import uvicorn
 
 app = FastAPI(title="AI Operations Assistant")
 
-# Initialize Agents
 planner = PlannerAgent()
 executor = ExecutorAgent()
 verifier = VerifierAgent()
