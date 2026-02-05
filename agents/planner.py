@@ -1,6 +1,6 @@
 from llm.wrapper import LLMNode
 
-# Update the prompt to show the 'limit' argument
+
 PLANNER_PROMPT = """
 You are a Planner Agent. Your job is to break a user request into a series of steps.
 Available Tools:

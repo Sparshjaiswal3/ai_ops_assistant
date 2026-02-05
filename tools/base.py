@@ -1,4 +1,3 @@
-# Simple registry to keep track of available tools
 TOOL_REGISTRY = {}
 
 def register_tool(name):
