@@ -1,0 +1,30 @@
+from llm.wrapper import LLMNode
+
+PLANNER_PROMPT = """
+You are a Planner Agent. Your job is to break a user request into a series of steps.
+Available Tools:
+1. github_search(query: str) - Find popular repositories.
+2. get_weather(city: str) - Get current weather.
+
+Output strictly valid JSON in this format:
+{
+    "plan": [
+        {
+            "step_id": 1,
+            "tool": "github_search", 
+            "arguments": {"query": "python agents"},
+            "description": "Search for python agent repos"
+        },
+        ...
+    ]
+}
+If no tool is needed for a step (e.g., summary), use "tool": "none".
+"""
+
+class PlannerAgent:
+    def __init__(self):
+        self.llm = LLMNode(PLANNER_PROMPT)
+
+    def create_plan(self, user_request):
+        print(f"--> Planner: Creating plan for '{user_request}'")
+        return self.llm.generate(user_request, json_mode=True)
