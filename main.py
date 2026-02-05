@@ -18,15 +18,12 @@ class TaskRequest(BaseModel):
 @app.post("/run-task")
 async def run_task(request: TaskRequest):
     try:
-        # 1. Plan
         plan = planner.create_plan(request.task)
         if "error" in plan:
             raise HTTPException(status_code=500, detail=plan["error"])
         
-        # 2. Execute
         execution_results = executor.execute_plan(plan)
         
-        # 3. Verify & Summarize
         final_result = verifier.verify(request.task, execution_results)
         
         return {

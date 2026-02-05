@@ -3,20 +3,17 @@ from agents.planner import PlannerAgent
 from agents.executor import ExecutorAgent
 from agents.verifier import VerifierAgent
 
-# Page Config
 st.set_page_config(page_title="AI Operations Assistant")
 
 st.title("AI Operations Assistant")
 st.markdown("Enter a task that requires **GitHub** or **Weather** data.")
 
-# Initialize Agents (Cached to avoid reloading)
 @st.cache_resource
 def load_agents():
     return PlannerAgent(), ExecutorAgent(), VerifierAgent()
 
 planner, executor, verifier = load_agents()
 
-# Input
 task = st.text_input("Enter your task:", placeholder="e.g., Find top 3 AI repos and check weather in New Delhi")
 
 if st.button("Run Task"):
