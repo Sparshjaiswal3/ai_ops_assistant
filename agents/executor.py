@@ -18,9 +18,14 @@ class ExecutorAgent:
 
             if tool_name in TOOL_REGISTRY:
                 tool_instance = TOOL_REGISTRY[tool_name]()
-                # Unpack arguments
+                
+                # Dynamic argument handling
                 if tool_name == "github_search":
-                    output = tool_instance.execute(args.get("query"))
+                    # Pass both query and limit (defaulting to 5 if missing)
+                    output = tool_instance.execute(
+                        query=args.get("query"),
+                        limit=args.get("limit", 5)
+                    )
                 elif tool_name == "get_weather":
                     output = tool_instance.execute(args.get("city"))
                 else:

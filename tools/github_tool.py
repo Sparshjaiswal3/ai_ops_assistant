@@ -5,10 +5,14 @@ from .base import register_tool
 @register_tool("github_search")
 class GitHubTool:
     """Searches GitHub repositories for a query."""
-    def execute(self, query):
+    
+    # We add a default limit of 5, but allow it to be changed
+    def execute(self, query, limit=5):
         token = os.getenv("GITHUB_TOKEN")
         headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
-        url = f"https://api.github.com/search/repositories?q={query}&sort=stars&order=desc&per_page=3"
+        
+        # Inject the limit into the URL
+        url = f"https://api.github.com/search/repositories?q={query}&sort=stars&order=desc&per_page={limit}"
         
         try:
             response = requests.get(url, headers=headers)
